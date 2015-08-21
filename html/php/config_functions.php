@@ -21,7 +21,7 @@
                 $lineparts = explode("=", $line);
                 if ($lineparts[0] == $config_value)
                 {
-                    if (sizeof($lineparts) < 3 && sizeof($lineparts) > 1)
+                    if (sizeof($lineparts) == 2)
                         $results = $lineparts[1];
                     break;
                 }
