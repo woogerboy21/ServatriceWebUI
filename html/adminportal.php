@@ -5,7 +5,9 @@
     <title>Servatrice Administrator</title>
     <link rel="stylesheet" href="css/style.css">
     <?php
-        require 'funct/.auth_modsession.php';
+        $access_privlevel = 'moderator';
+        require 'funct/auth_functions.php';
+
     ?>
 </head>
 <body>

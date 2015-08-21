@@ -10,6 +10,7 @@
     </body>
 </html>
 version=1.0
+sessiontimeout=600
 dbserver=localhost
 dbusername=root
 dbpassword=6ebafRab

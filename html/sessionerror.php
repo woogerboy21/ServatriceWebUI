@@ -15,11 +15,8 @@
                 case "sessiontimeout":
                     $displayed_message = "Session timeout.";
                     break;
-                case "notprivilegedmod":
-                    $displayed_message = "Moderator permissions required.";
-                    break;
-                case "notprivilegedadmin":
-                    $displayed_message = "Admin permissions required.";
+                case "notprivileged":
+                    $displayed_message = "Elevated permissions required.";
                     break;
                 default:
                     break;

@@ -1,6 +1,6 @@
 <?php
 
-    //TODO: ADD PRETTY AUTHENTICATION IN PROGRESS / FAILED SCREEN
+    GLOBAL $config_file;
     require 'useraccount_functions.php';
 
     if ($_SERVER['REQUEST_METHOD'] == "POST")
@@ -8,8 +8,10 @@
         $inputed_username = trim($_POST["inputeduname"]);
         $inputed_password = trim($_POST["inputedpword"]);
 
-        if (empty($inputed_username) || empty($inputed_password))
+        if (empty($inputed_username) || empty($inputed_password)) {
             header('Location: ../failedlogin.php?error=blankinfo');
+            die;
+        }
 
         $account_active = get_user_data($inputed_username, "active");
         if ($account_active)
@@ -17,18 +19,23 @@
             $user_db_password = get_user_data($inputed_username, "password_sha512");
             if (!empty($user_db_password))
             {
-                $userSalt = trim(substr($user_db_password, 0, 16));
-                $inputed_PasswordHash = crypt_password($inputed_password, $userSalt);
-                if (empty($inputed_PasswordHash))
+                $user_salt = trim(substr($user_db_password, 0, 16));
+                $inputed_password_hash = crypt_password($inputed_password, $user_salt);
+                if (empty($inputed_password_hash)) {
                     header('Location: ../failedlogin.php?error=internal');
+                    die;
+                }
 
-                if (trim($user_db_password) != trim($inputed_PasswordHash))
+                if (trim($user_db_password) != trim($inputed_password_hash)) {
                     header('Location: ../failedlogin.php?error=invalidcred');
+                    die;
+                }
+
             }
 
             session_start();
             $_SESSION['username'] = $inputed_username;
-            $_SESSION['timeout'] = 300;
+            $_SESSION['timeout'] = get_config_value($config_file,'sessiontimeout');
             $_SESSION['start'] = time();
 
             $user_level_rank = get_user_data($inputed_username, "admin");
@@ -49,15 +56,19 @@
             else
             {
                 header('Location: ../failedlogin.php?error=notprivileged');
+                die;
             }
         }
         else
         {
             $does_user_exist = check_if_user_exists($inputed_username);
-            if ($does_user_exist)
+            if ($does_user_exist) {
                 header('Location: ../failedlogin.php?error=inactive');
-            else
+                die;
+            } else {
                 header('Location: ../failedlogin.php?error=notexist');
+                die;
+            }
         }
     }
 ?>
