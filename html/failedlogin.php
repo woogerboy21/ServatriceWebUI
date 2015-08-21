@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Failed Login</title>
+    <title>Servatrice Administrator</title>
     <link rel="stylesheet" href="css/style.css">
     <?php
         $displayed_message = "";

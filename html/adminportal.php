@@ -5,7 +5,7 @@
     <title>Servatrice Administrator</title>
     <link rel="stylesheet" href="css/style.css">
     <?php
-        require '.auth_modsession.php';
+        require 'funct/.auth_modsession.php';
     ?>
 </head>
 <body>

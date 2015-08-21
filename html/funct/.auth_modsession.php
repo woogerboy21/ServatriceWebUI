@@ -1,37 +1,31 @@
 <?php
-                        session_start();
-						$current_file =  basename($_SERVER['PHP_SELF']);
-						
-                        if (!isset($_SESSION['username'])) {
-                                echo "<center>Please <a href=\"loginpage.php?redirect=$current_file\">login</a> to continue</center>";
-                                header("refresh 3: url=loginpage.php?redirect=$current_file)");
-                                exit;
-                        }
+    session_start();
 
-                        if (isset($_SESSION['start'])) {
-                                $sessionlife = time() - $_SESSION['start'];
-                                if ($sessionlife > $_SESSION['timeout']){
-                                        echo "<center>Session Timeout<br>Please logout and <a href=\"loginpage.php?redirect=$current_file\">re-login</a> to continue</center>";
-                                        header("refresh 3: url=loginpage.php?redirect=$current_file)");
-                                        exit;
-                                } else {
-                                        $_SESSION['start'] = time();
-                                }
-                        } else {
-                                echo "<center>Please <a href=\"loginpage.php?redirect=$current_file\">login</a> to continue</center>";
-                                header("refresh 3: url=loginpage.php?redirect=$current_file)");
-                                exit;
-                        }
-                        if (!isset($_SESSION['admin'])) {
-                                echo "<center>Please <a href=\"loginpage.php?redirect=$current_file\">login</a> to continue</center>";
-                                header("refresh 3: url=loginpage.php?redirect=$current_file)");
-                                exit;
-                        } else {
-                                if ($_SESSION['admin'] < 1) {
-                                        echo '<center>Moderator Privilages Required</center><br>';
-                                        echo "<center>Please <a href=\"loginpage.php?redirect=$current_file\">login</a> to continue</center>";
-                                        header("refresh 3: url=loginpage.php?redirect=$current_file)");
-                                        exit;
-                                }
-                        }
+    if (!isset($_SESSION['username']))
+    {
+        header('Location: sessionerror.php?error=loginrequired');
+    }
+
+    if (isset($_SESSION['start']))
+    {
+        $sessionlife = time() - $_SESSION['start'];
+        if ($sessionlife > $_SESSION['timeout'])
+        {
+            header('Location: sessionerror.php?error=sessiontimeout');
+        } else {
+            $_SESSION['start'] = time();
+        }
+    } else {
+        header('Location: sessionerror.php?error=lognrequired');
+    }
+
+    if (!isset($_SESSION['admin']))
+    {
+        header('Location: sessionerror.php?error=loginrequired');
+    } else {
+        if ($_SESSION['admin'] == 'user')
+        {
+            header('Location: sessionerror.php?error=notprivilegedmod');
+        }
+    }
 ?>
