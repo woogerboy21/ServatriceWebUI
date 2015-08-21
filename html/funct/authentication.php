@@ -9,7 +9,7 @@
         $inputed_password = trim($_POST["inputedpword"]);
 
         if (empty($inputed_username) || empty($inputed_password))
-            die(header('Location: ../failedlogin.php?error=blankinfo'));
+            die(header('Location: ../errorpage.php?source=authentication&error=blankinfo'));
 
         $account_active = get_user_data($inputed_username, "active");
         if ($account_active)
@@ -21,10 +21,10 @@
                 $inputed_password_hash = crypt_password($inputed_password, $user_salt);
 
                 if (empty($inputed_password_hash))
-                    die(header('Location: ../failedlogin.php?error=internal'));
+                    die(header('Location: ../errorpage.php?source=authentication&error=internal'));
 
                 if (trim($user_db_password) != trim($inputed_password_hash))
-                    die(header('Location: ../failedlogin.php?error=invalidcred'));
+                    die(header('Location: ../errorpage.php?source=authentication&error=invalidcred'));
             }
 
             session_start();
@@ -49,16 +49,16 @@
             }
             else
             {
-                die(header('Location: ../failedlogin.php?error=notprivileged'));
+                die(header('Location: ../errorpage.php?source=authentication&error=notprivileged'));
             }
         }
         else
         {
             $does_user_exist = check_if_user_exists($inputed_username);
             if ($does_user_exist)
-                die(header('Location: ../failedlogin.php?error=inactive'));
+                die(header('Location: ../errorpage.php?source=authentication&error=inactive'));
             else
-                die(header('Location: ../failedlogin.php?error=notexist'));
+                die(header('Location: ../errorpage.php?source=authentication&error=notexist'));
         }
     }
 ?>

@@ -14,6 +14,8 @@
                 case "notprivileged": $displayed_message = "You must be a moderator or higher."; break;
                 case "inactive": $displayed_message = "Account is inactive."; break;
                 case "notexist": $displayed_message = "User account does not exist."; break;
+                case "loginrequired": $displayed_message = "Login required."; break;
+                case "sessiontimeout": $displayed_message = "Session timeout."; break;
                 default: $displayed_message = "Internal error, please try again."; break;
             }
         }
@@ -22,7 +24,19 @@
 <body>
     <div class="wrap">
         <div class="avatar">
-            <a href="index.php"><img src="loginerror.png"></a>
+            <a href="index.php"><img src=<?php
+                switch ($_GET['source']) {
+                    case 'authentication':
+                        echo '"loginerror.png"';
+                        break;
+                    case 'session':
+                        echo '"sessionerror.png"';
+                        break;
+                    default:
+                        echo '"avatar.png"';
+                        break;
+                }
+            ?>></a>
         </div>
         <input type="texttitle" name="reason" placeholder="Failed Login" required disabled>
         <input type="textdescript" name="inputedpword" placeholder="<?=$displayed_message?>" required disabled>
