@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,6 @@
     <?php
         $access_privlevel = 'moderator';
         require 'funct/auth_functions.php';
-
     ?>
 </head>
 <body>
