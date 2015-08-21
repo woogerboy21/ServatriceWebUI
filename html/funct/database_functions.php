@@ -1,5 +1,6 @@
 <?php
 
+    //TODO: CONVERT TO MYSQLi FOR BETTER SECURITY
     require 'config_functions.php';
     GLOBAL $config_file;
 
