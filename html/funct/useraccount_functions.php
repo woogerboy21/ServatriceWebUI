@@ -1,5 +1,6 @@
 <?php
 
+    GLOBAL $config_file;
     require 'database_functions.php';
     $db_table = trim(get_config_value($config_file, 'dbusertable'));
 
@@ -22,8 +23,6 @@
     function get_user_data($user_name, $data_to_collect)
     {
         GLOBAL $db_table;
-        
-        echo $data_to_collect; // Why?
         
         $query_string = "SELECT * FROM " . $db_table . " WHERE LOWER(name)='" . $user_name . "'";
         $data = query_database($query_string);
