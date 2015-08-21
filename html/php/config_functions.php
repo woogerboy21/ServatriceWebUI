@@ -1,26 +1,37 @@
 <?php
 
-    global $config_file;
+    GLOBAL $config_file;
     $config_file = ".config";
 
-    function get_config_value($configfile,$configvalue){
-        $results = "unknown";
-        if (empty($configfile)){ $results = "failed, config file name can not be blank"; return $results; exit;}
-        if (empty($configvalue)){ $results = "failed, config file value can not be blank"; return $results; exit;}
-        if (!file_exists($configfile)){ $results = "failed, config file does not exist"; return $results; exit;}
-        $file_handle = fopen($configfile, "r");
-        while (!feof($file_handle)) {
+    function get_config_value($config_file_input, $config_value)
+    {
+        if (empty($config_file_input))
+            return "failed, config file name can not be blank";
+        if (empty($config_value))
+            return "failed, config file value can not be blank";
+        if (!file_exists($config_file_input))
+            return "failed, config file does not exist";
+
+        $file_handle = fopen($config_file_input, "r");
+        while (!feof($file_handle))
+        {
             $line = fgets($file_handle);
-            if (strpos($line,$configvalue) !== false){
-                $lineparts = explode("=",$line);
-                if ($lineparts[0] == $configvalue){
-                    if (sizeof($lineparts) < 3 && sizeof($lineparts) > 1){ $results = $lineparts[1];}
+            if (strpos($line,$config_value) !== false)
+            {
+                $lineparts = explode("=", $line);
+                if ($lineparts[0] == $config_value)
+                {
+                    if (sizeof($lineparts) < 3 && sizeof($lineparts) > 1)
+                        $results = $lineparts[1];
                     break;
                 }
             }
         }
         fclose($file_handle);
-        if ($results == "unknown"){ $results = "failed, unable to locate config value (" . $configvalue . ")";}
+
+        if (empty($results))
+            return "failed, unable to locate config value (" . $config_value . ")";
+
         return trim($results);
     }
 ?>
