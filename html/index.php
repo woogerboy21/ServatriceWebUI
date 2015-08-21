@@ -16,7 +16,7 @@
     session_destroy();
   ?>
 
-  <form action="php/authentication.php" method="post">
+  <form action="funct/authentication.php" method="post">
     <div class="wrap">
 		<div class="avatar">
           <img src="avatar.png">

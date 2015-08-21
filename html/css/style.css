@@ -63,6 +63,14 @@ body {
 .wrap input[type="password"] {
 	border-radius: 0px 0px 7px 7px ;
 }
+.wrap input[type="texttitle"] {
+	border-radius: 7px 7px 0px 0px ;
+	text-align: center;
+}
+.wrap input[type="textdescript"] {
+	border-radius: 0px 0px 7px 7px ;
+	text-align: center;
+}
 .forgot_link {
 	color: #83afdf ;
 	color: #83afdf;
