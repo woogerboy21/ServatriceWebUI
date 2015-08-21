@@ -1,5 +1,0 @@
-#!/bin/bash
-for filename in /var/www/cockatrice/registration/*.mail.sent; do
-	IFS='.' read -a array <<< "$filename"
-	mv $filename ${array[0]}.mail
-done
