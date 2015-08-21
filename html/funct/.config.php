@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Servatrice Administrator</title>
-        <link rel="stylesheet" href="../css/style.css">
-        <?php die; ?>
-    </head>
-    <body>
-
-    </body>
-</html>
+<?php die(header("Location: index.html")); ?>
 version=1.0
 sessiontimeout=600
 dbserver=localhost
