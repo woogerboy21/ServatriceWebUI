@@ -22,11 +22,10 @@
 
         switch ($_GET['source'])
         {
-            case "authentication": $source_img = '"loginerror.png"'; break;
-            case "session": $source_img = '"sessionerror.png"'; break;
-            default: $source_img = '"avatar.png"'; break;
+            case "authentication": $source_img = "loginerror.png"; break;
+            case "session": $source_img = "sessionerror.png"; break;
+            default: $source_img = "avatar.png"; break;
         }
-        
     ?>
 </head>
 <body>
