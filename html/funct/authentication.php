@@ -12,6 +12,7 @@
             die(header('Location: ../errorpage.php?source=authentication&error=blankinfo'));
 
         $account_active = get_user_data($inputed_username, "active");
+
         if ($account_active)
         {
             $user_db_password = get_user_data($inputed_username, "password_sha512");

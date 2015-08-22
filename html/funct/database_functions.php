@@ -1,6 +1,5 @@
 <?php
 
-    //TODO: CONVERT TO MYSQLi FOR BETTER SECURITY
     require 'config_functions.php';
     GLOBAL $config_file;
 
@@ -12,19 +11,9 @@
     function connect_to_database()
     {
         GLOBAL $db_server, $db_username, $db_password, $db_name;
-
-        $connection = mysql_connect($db_server, $db_username, $db_password) or die(mysql_error());
-        $database = mysql_select_db($db_name, $connection) or die(mysql_error());
-
+        $connection = new PDO("mysql:host=$db_server;dbname=$db_name", $db_username, $db_password);
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $connection;
     }
 
-    function query_database($query_string)
-    {
-        $db_connection = connect_to_database();
-        $query = mysql_query($query_string) or die(mysql_error());
-        mysql_close($db_connection);
-
-        return $query;
-    }
 ?>

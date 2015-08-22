@@ -2,7 +2,8 @@
 
     GLOBAL $config_file;
     require 'database_functions.php';
-    $db_table = trim(get_config_value($config_file, 'dbusertable'));
+    $db_prefix = trim(get_config_value($config_file, 'tblprefix'));
+    $db_table = $db_prefix . '_users';
 
     function crypt_password($password, $salt = '')
     {
@@ -22,24 +23,43 @@
 
     function get_user_data($user_name, $data_to_collect)
     {
-        GLOBAL $db_table;
-        
-        $query_string = "SELECT * FROM " . $db_table . " WHERE LOWER(name)='" . $user_name . "'";
-        $data = query_database($query_string);
-        $row = mysql_fetch_array($data);
-        $data_to_collect = strtolower(trim($data_to_collect));
 
-        return $row[$data_to_collect];
+        GLOBAL $db_table;
+
+        try {
+            $db_connection = connect_to_database();
+            $query = $db_connection->prepare("select * from " . $db_table . " where name = :username");
+            $query->bindParam(':username',$user_name);
+            $query->execute();
+
+        }
+        catch(PDOException $error)
+        {
+            die($error->getMessage());
+        }
+
+        $row = $query->fetchObject();
+        return $row->$data_to_collect;
     }
 
     function check_if_user_exists($user_name)
     {
         GLOBAL $db_table;
 
-        $query_string = "SELECT count(name) FROM " . $db_table . " where name='" . $user_name . "'";
-        $data = query_database($query_string);
+        try {
+            $db_connection = connect_to_database();
+            $query = $db_connection->prepare("select count(name) from " . $db_table . " where name = :username");
+            $query->bindParam(':username',$user_name);
+            $query->execute();
 
-        if ($row = mysql_fetch_array($data))
-            return ($row['count(name)'] > 0) ? true : false;
+        }
+        catch(PDOException $error)
+        {
+            die($error->getMessage());
+        }
+
+        return ($query->rowCount() > 0) ? true : false;
+
     }
+
 ?>
