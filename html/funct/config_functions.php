@@ -29,9 +29,6 @@
         }
         fclose($file_handle);
 
-        if (empty($results))
-            return "failed, unable to locate config value (" . $config_value . ")";
-
-        return trim($results);
+        return (empty($results)) ? "failed, unable to locate config value ($config_value)" : trim($results);
     }
 ?>

@@ -19,24 +19,20 @@
                 default: $displayed_message = "Internal error, please try again."; break;
             }
         }
+
+        switch ($_GET['source'])
+        {
+            case "authentication": $source_img = '"loginerror.png"'; break;
+            case "session": $source_img = '"sessionerror.png"'; break;
+            default: $source_img = '"avatar.png"'; break;
+        }
+        
     ?>
 </head>
 <body>
     <div class="wrap">
         <div class="avatar">
-            <a href="index.php"><img src=<?php
-                switch ($_GET['source']) {
-                    case 'authentication':
-                        echo '"loginerror.png"';
-                        break;
-                    case 'session':
-                        echo '"sessionerror.png"';
-                        break;
-                    default:
-                        echo '"avatar.png"';
-                        break;
-                }
-            ?>></a>
+            <a href="index.php"><img src="<?=$source_img?>"></a>
         </div>
         <input type="texttitle" name="reason" placeholder="Failed Login" required disabled>
         <input type="textdescript" name="inputedpword" placeholder="<?=$displayed_message?>" required disabled>

@@ -1,7 +1,6 @@
 <?php
-
-    require 'config_functions.php';
     GLOBAL $config_file;
+    require 'config_functions.php';
 
     $db_server = get_config_value($config_file, "dbserver");
     $db_username = get_config_value($config_file, "dbusername");
@@ -15,5 +14,4 @@
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $connection;
     }
-
 ?>

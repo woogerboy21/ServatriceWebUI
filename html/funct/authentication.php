@@ -45,7 +45,7 @@
             if ($_SESSION['userlevelrank'] != 'user')
             {
                 $redirect_location = $_POST['redirect'];
-                (strlen($redirect_location) > 0) ? header("Location: $redirect_location") : header('Location: ../adminportal.php');
+                die((strlen($redirect_location) > 0) ? header("Location: $redirect_location") : header('Location: ../adminportal.php'));
 
             }
             else
