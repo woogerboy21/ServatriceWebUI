@@ -23,17 +23,17 @@
 
     function get_user_data($user_name, $data_to_collect)
     {
-
         GLOBAL $db_table;
 
-        try {
+        try
+        {
             $db_connection = connect_to_database();
             $query = $db_connection->prepare("select * from " . $db_table . " where name = :username");
             $query->bindParam(':username',$user_name);
             $query->execute();
 
         }
-        catch(PDOException $error)
+        catch (PDOException $error)
         {
             die($error->getMessage());
         }
@@ -46,20 +46,19 @@
     {
         GLOBAL $db_table;
 
-        try {
+        try
+        {
             $db_connection = connect_to_database();
             $query = $db_connection->prepare("select count(name) from " . $db_table . " where name = :username");
             $query->bindParam(':username',$user_name);
             $query->execute();
 
         }
-        catch(PDOException $error)
+        catch (PDOException $error)
         {
             die($error->getMessage());
         }
 
         return ($query->rowCount() > 0) ? true : false;
-
     }
-
 ?>
